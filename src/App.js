@@ -1,25 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import { Login } from './components/Login';
+import { ProtectedRoute } from './components/ProtectedRoute';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { useEffect, useState, createContext } from 'react';
+import { Info } from './components/Info';
+
+const tokenContext = createContext();
 
 function App() {
+  const [token, setToken] = useState();
+
+  useEffect(() => {
+    // Check whether token saved in session storage and update token state if yes
+    const storageToken = sessionStorage.getItem('token');
+    if (storageToken) {
+      setToken(storageToken);
+    }
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <tokenContext.Provider value={{ token, setToken }}>
+        <Router>
+          <Route exact path="/">
+            <Login />
+          </Route>
+          <ProtectedRoute exact path="/info" component={Info} />
+        </Router>
+      </tokenContext.Provider>
     </div>
   );
 }
 
 export default App;
+export { tokenContext };

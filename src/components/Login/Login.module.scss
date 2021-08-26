@@ -1,0 +1,25 @@
+.loginForm{
+  position: relative;
+  background: #fff;
+  border-radius: 7px;
+  box-shadow: 0 2px 5px #ccc;
+  padding: 10px 10px 10px;
+  width: 450px;
+  height: 320px;
+  margin: 10rem auto;
+  .emailInput{
+    margin-bottom: 40px;
+  }
+  .passwordInput{
+    margin-bottom: 60px;
+  }
+  .errorMessage{
+    width: 80%;
+    position: absolute;
+  }
+  .loader{
+    display: inline-block;
+    margin-left: 8px;
+  }
+}
+
